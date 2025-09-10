@@ -32,8 +32,9 @@ if (textList[i].isFinal===true) {
 text+=textList[i][0].transcript;
 }
 else {
-lastText=textList[i][0].transcript.slice(lastText.length, textList[i][0].transcript.length);
-document.getElementById("chatSubs").textContent=`${textList[i][0].transcript} `;
+lastText= textList[i][0].transcript.slice(lastText.length, textList[i][0].transcript.length);
+
+document.getElementById("chatSubs").textContent+= ${lastText};
 
 }
 }
