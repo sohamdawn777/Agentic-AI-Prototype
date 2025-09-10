@@ -14,9 +14,11 @@ def homepage(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
 @app.get("/chat", response_class= HTMLResponse)
-def chat(request: Request):
+def chatWindow(request: Request):
     return templates.TemplateResponse("chatWindow.html",{"request": request})
 
 @app.post("/query", response_class=JSONResponse)
+async def chat():
+
 
 
