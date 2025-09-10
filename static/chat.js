@@ -16,8 +16,11 @@ const SpeechRecognition= window.SpeechRecognition || window.webkitSpeechRecognit
 
 
 const recognition= new SpeechRecognition(); //Creating A Web Speech API voice recognition class
+
 recognition.lang= "en-US"; //the language code of the voice to be recognized
+
 recognition.interimResults= true; //
+
 recognition.continuous= true; //does not let the voice capturing stop after one sentence
 
 recognition.start();
