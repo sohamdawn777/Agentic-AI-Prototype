@@ -1,9 +1,9 @@
-async function onSuccess () {
-
+window.onload = async () => {
+try {
+const voice= await navigator.mediaDevices.getUserMedia({
+audio: true, video: false });
 }
-
-window.onload = () => {
-navigator.mediaDevices.getUserMedia({
-audio: true, video: false, onSuccess, onError
-});
+catch (error) {
+console.log(error);
+}
 }
