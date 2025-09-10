@@ -3,7 +3,6 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from langchain_google_genai import ChatGoogleGenerativeAI
-from langchain.prompts import ChatPromptTemplate
 from langchain.agents import interactive_agent, AgentType, Tool, initialize_agent
 from langchain.memory import ConversationBufferMemory 
 
