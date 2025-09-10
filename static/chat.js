@@ -57,7 +57,7 @@ splitArray= lastText.split(" ");
 for (let j of splitArray) {
 if (fillerWords.includes(j.toLowerCase())) {
 count++;
-document.getElementById("fillerWords").textContent= count;
+document.getElementById("fillerWords").textContent= `Filler Word Count: ${count}`;
 }
 }
 }
@@ -69,7 +69,7 @@ splitArray2= paceText.split(" ");
 paceText="";
 let paceDiv= document.createElement("div");
 paceDiv.id= "paceDiv";
-paceDiv.textContent= (splitArray2.length)*4;
+paceDiv.textContent= `Pace (Last 30s) ${(splitArray2.length)*4}`;
 document.body.appendChild(paceDiv);
 a+=(splitArray2.length)*4;
 b+=1;
@@ -79,7 +79,7 @@ recognition.onspeechend = async () => {
 
 let finalPace= document.createElement("div");
 finalPace.id= "finalPace";
-finalPace.textContent= a/b;
+finalPace.textContent= `Average Pace: ${a/b}`;
 document.body.appendChild(finalPace);
 
 const response= await fetch("/query", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({"query": text})});
