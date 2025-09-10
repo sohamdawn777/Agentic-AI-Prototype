@@ -6,6 +6,8 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.agents import interactive_agent, AgentType, Tool, initialize_agent
 from langchain.memory import ConversationBufferMemory 
 
+llm= ChatGoogleGenerativeAI(model= "gemini-2.5-pro", api_key="")
+
 def summary(input):
     prompt=f"Summarize the full text given below in 2 to 3 sentences\n\n{input}"
     return llm.invoke(prompt).content
@@ -36,7 +38,6 @@ def homepage(request: Request):
 def chatWindow(request: Request):
     return templates.TemplateResponse("chatWindow.html",{"request": request})
 
-llm= ChatGoogleGenerativeAI(model= "gemini-2.5-pro", api_key="")
 tool1= Tool(name="summary", func=summary, description="This summarizes the user query.")
 tool2= Tool(name="sentimentAnalysis", func=sentimentAnalysis, description="This analyses the sentiments of the user query.")
 tool3= Tool(name="toneAnalysis", func=toneAnalysis, description="This analyses the tone of the user query.")
