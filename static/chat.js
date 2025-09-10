@@ -2,6 +2,11 @@ window.onload = async () => {
 
 let fillerWords= ["uh", "um", "er", "ah", "hmm", "like", "so", "well", "actually", "basically", "literally", "right", "ok", "okay"];
 
+function endChat(event) {
+recognition.stop();
+window.location.href="/Results";
+}
+
 try {
 const voice= await navigator.mediaDevices.getUserMedia({
 audio: true, video: false });
@@ -78,4 +83,6 @@ utterance.text= text;
 speechSynthesis.speak(utterance);
 
 }
+
+document.getElementById("b2").addEventListener("click", endChat);
 }
