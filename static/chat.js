@@ -17,10 +17,14 @@ recognition.lang= "en-US";
 recognition.interimResults= true; 
 recognition.continuous= true; 
 
+let a=0,
+let b=0;
 let text=""; 
 let textList;
 let lastText="";
+let paceText="";
 let splitArray;
+let splitArray2;
 
 const utterance= new SpeechSynthesisUtterance();
 utterance.lang= "en-US";
@@ -37,6 +41,8 @@ text+=textList[i][0].transcript;
 else {
 lastText= textList[i][0].transcript.slice(lastText.length, textList[i][0].transcript.length);
 
+paceText+=lastText;
+
 document.getElementById("chatSubs").textContent+= lastText;
 
 splitArray= lastText.split(" ");
@@ -48,6 +54,17 @@ document.getElementById("fillerWords").textContent+=1;
 }
 }
 }
+
+setTimeout(() => {
+splitArray2= paceText.split(" ");
+paceText="";
+let paceDiv= document.createElement("div");
+paceDiv.id= "paceDiv";
+paceDiv.textContent= (splitArray2.length)*4;
+document.body.appendChild(paceDiv);
+a+=(splitArray2.length)*4;
+b+=1;
+},15000);
 
 recognition.onspeechend = async () => {
 
