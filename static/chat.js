@@ -23,19 +23,27 @@ recognition.interimResults= true; //
 
 recognition.continuous= true; //does not let the voice capturing stop after one sentence
 
+let text; 
+
+const utterance= new SpeechSynthesisUtterance(text);
+utterance.lang= "en-US";
+utterance.pitch= "1.0";
+utterance.rate= "1.0";
+utterance.volume= "1.0";
+
+
 recognition.onspeechend = async () => {
 
-let text;
 recognition.onresult = async(event) => {
 text= await event.results;
 }
 
 const response= await fetch("/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({"query": text})});
 
+speechSynthesis.speak(utterance);
+
 }
 
 recognition.start();
-recognition.stop();
-
 
 }
