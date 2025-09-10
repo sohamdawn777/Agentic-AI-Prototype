@@ -47,7 +47,7 @@ document.getElementById("chatSubs").textContent+= lastText;
 
 splitArray= lastText.split(" ");
 for (let j of splitArray) {
-if (fillerWords.includes(j.toLowerCase)) {
+if (fillerWords.includes(j.toLowerCase())) {
 document.getElementById("fillerWords").textContent+=1;
 }
 }
@@ -55,7 +55,7 @@ document.getElementById("fillerWords").textContent+=1;
 }
 }
 
-setTimeout(() => {
+setInterval(() => {
 splitArray2= paceText.split(" ");
 paceText="";
 let paceDiv= document.createElement("div");
