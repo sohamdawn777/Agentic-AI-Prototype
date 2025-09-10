@@ -23,7 +23,12 @@ recognition.interimResults= true; //
 
 recognition.continuous= true; //does not let the voice capturing stop after one sentence
 
-recognition.onspeechend = () => {
+recognition.onspeechend = async () => {
+
+let text;
+recognition.onresult = async(event) => {
+text=event.results;
+}
 
 const response= await fetch("/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({"query": text})});
 
