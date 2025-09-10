@@ -31,7 +31,8 @@ if (textList[i].isFinal===true) {
 text+=textList[i][0].transcript;
 }
 else {
-document.getElementById("chatSubs").textContent+=`${textList[i][0].transcript} `;
+document.getElementById("chatSubs").textContent=`${textList[i][0].transcript} `;
+
 }
 }
 }
