@@ -49,7 +49,8 @@ document.getElementById("chatSubs").textContent+= lastText;
 splitArray= lastText.split(" ");
 for (let j of splitArray) {
 if (fillerWords.includes(j.toLowerCase())) {
-document.getElementById("fillerWords").textContent= count+1;
+count++;
+document.getElementById("fillerWords").textContent= count;
 }
 }
 }
