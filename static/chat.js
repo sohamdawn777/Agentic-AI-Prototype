@@ -18,6 +18,7 @@ recognition.continuous= true;
 let text=""; 
 let textList;
 let lastText="";
+let splitArray;
 
 const utterance= new SpeechSynthesisUtterance();
 utterance.lang= "en-US";
@@ -36,6 +37,12 @@ lastText= textList[i][0].transcript.slice(lastText.length, textList[i][0].transc
 
 document.getElementById("chatSubs").textContent+= lastText;
 
+splitArray= lastText.split(" ");
+for (let j of splitArray) {
+if (fillerWords.includes(j.toLowerCase)) {
+document.getElementById("fillerWords").textContent+=1;
+}
+}
 }
 }
 }
