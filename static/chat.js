@@ -25,6 +25,7 @@ let lastText="";
 let paceText="";
 let splitArray;
 let splitArray2;
+let count=0;
 
 const utterance= new SpeechSynthesisUtterance();
 utterance.lang= "en-US";
@@ -36,19 +37,19 @@ recognition.onresult = (event) => {
 textList= event.results;
 for (let i=0; i<=textList.length-1; i++) {
 if (textList[i].isFinal===true) {
-text+=textList[i][0].transcript;
+text+= textList[i][0].transcript;
 }
 else {
 lastText= textList[i][0].transcript.slice(lastText.length, textList[i][0].transcript.length);
 
-paceText+=lastText;
+paceText+= lastText;
 
 document.getElementById("chatSubs").textContent+= lastText;
 
 splitArray= lastText.split(" ");
 for (let j of splitArray) {
 if (fillerWords.includes(j.toLowerCase())) {
-document.getElementById("fillerWords").textContent+=1;
+document.getElementById("fillerWords").textContent= count+1;
 }
 }
 }
