@@ -4,7 +4,7 @@ let fillerWords= ["uh", "um", "er", "ah", "hmm", "like", "so", "well", "actually
 
 function endChat(event) {
 recognition.stop();
-window.location.href="/results";
+//window.location.href="/results";
 }
 
 try {
@@ -76,6 +76,11 @@ b+=1;
 },15000);
 
 recognition.onspeechend = async () => {
+
+let finalPace= document.createElement("div");
+finalPace.id= "finalPace";
+finalPace.textContent= a/b;
+document.body.appendChild(finalPace);
 
 const response= await fetch("/query", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({"query": text})});
 
