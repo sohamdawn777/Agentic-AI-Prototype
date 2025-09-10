@@ -4,10 +4,26 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.prompts import ChatPromptTemplate
-from langchain.chains import LLMChain
-from langchain.agents import interactive_agent, AgentType, Tool
+from langchain.agents import interactive_agent, AgentType, Tool, initialize_agent
 from langchain.memory import ConversationBufferMemory 
 
+def summary(input):
+    prompt=f"Summarize the full text given below in 2 to 3 sentences\n\n{input}"
+    return llm.invoke(prompt).content
+    
+def sentimentAnalysis(input):
+    prompt=def sentimentAnalysis(text: str):
+    prompt = f"Analyze the sentiment of the following text. Reply with Positive, Negative, or Neutral:\n\n{input}"
+    return llm.invoke(prompt).content
+    
+def toneAnalysis(input):
+    prompt=f"Detect the tone (formal, casual, nervous, confident, etc.) of this text:\n\n{input}"
+    return llm.invoke(prompt).content
+    
+def advice(input):
+    prompt=f"Based on this text, give one short motivational advice:\n\n{input}"
+    return llm.invoke(prompt).content
+    
 app= FastAPI()
 
 app.mount("/static", StaticFiles(directory="static", name="static"))   
@@ -23,9 +39,19 @@ def chatWindow(request: Request):
     return templates.TemplateResponse("chatWindow.html",{"request": request})
 
 llm= ChatGoogleGenerativeAI(model= "gemini-2.5-pro", api_key="")
+tool1= Tool(name="summary", func=summary, description="This summarizes the user query.")
+tool2= Tool(name="sentimentAnalysis", func=sentimentAnalysis, description="This analyses the sentiments of the user query.")
+tool3= Tool(name="toneAnalysis", func=toneAnalysis, description="This analyses the tone of the user query.")
+tool4= Tool(name="advice", func=advice, description="This gives a short advice to the user.")
+tools= [tool1, tool2, tool3, tool4]
 
+memory= ConversationBufferMemory(memory_key="chat_history", return_messages=True)
+
+agent=initialize_agent(tools=tools, llm=llm, agent=AgentType.CONVERSATIONAL_REACT_DESCRIPTION, memory=memory, verbose=True)
 
 @app.post("/query", response_class=JSONResponse)
 async def chat(data: dict=Body(...)):
-
-
+    AIresponse=await agent.run(data["query"])
+    return {"resp": AIResponse}
+    
+    
