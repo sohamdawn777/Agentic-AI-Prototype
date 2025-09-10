@@ -26,8 +26,8 @@ utterance.volume= "1.0";
 
 recognition.onresult = (event) => {
 textList= event.results;
-for (let i of textList) {
-if (textList[i][0].transcript.isFinal===true) {
+for (let i=0; i<=textList.length-1; i++) {
+if (textList[i].isFinal===true) {
 text+=textList[i][0].transcript;
 }
 else {
