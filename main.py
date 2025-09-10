@@ -5,6 +5,8 @@ from fastapi.templating import Jinja2Templates
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.prompts import ChatPromptTemplate
 from langchain.chains import LLMChain
+from langchain.agents import interactive_agent, AgentType, Tool
+from langchain.memory import ConversationBufferMemory 
 
 app= FastAPI()
 
