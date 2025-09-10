@@ -1,1 +1,3 @@
-h
+window.onload = () => {
+
+}
