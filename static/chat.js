@@ -34,7 +34,7 @@ text+=textList[i][0].transcript;
 else {
 lastText= textList[i][0].transcript.slice(lastText.length, textList[i][0].transcript.length);
 
-document.getElementById("chatSubs").textContent+= ${lastText};
+document.getElementById("chatSubs").textContent+= lastText;
 
 }
 }
