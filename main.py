@@ -12,7 +12,6 @@ def summary(input):
     return llm.invoke(prompt).content
     
 def sentimentAnalysis(input):
-    prompt=def sentimentAnalysis(text: str):
     prompt = f"Analyze the sentiment of the following text. Reply with Positive, Negative, or Neutral:\n\n{input}"
     return llm.invoke(prompt).content
     
@@ -51,7 +50,7 @@ agent=initialize_agent(tools=tools, llm=llm, agent=AgentType.CONVERSATIONAL_REAC
 
 @app.post("/query", response_class=JSONResponse)
 async def chat(data: dict=Body(...)):
-    AIresponse=await agent.run(data["query"])
+    AIresponse= agent.run(data["query"])
     return {"resp": AIResponse}
     
     
