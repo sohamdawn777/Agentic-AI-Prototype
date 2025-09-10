@@ -15,7 +15,8 @@ recognition.lang= "en-US";
 recognition.interimResults= true; 
 recognition.continuous= true; 
 
-let text; 
+let text=""; 
+let textList;
 
 const utterance= new SpeechSynthesisUtterance(text);
 utterance.lang= "en-US";
@@ -23,12 +24,19 @@ utterance.pitch= "1.0";
 utterance.rate= "1.0";
 utterance.volume= "1.0";
 
+recognition.onresult = (event) => {
+textList= event.results;
+for (let i of textList) {
+if (textList[i][0].transcript.isFinal===true) {
+text+=textList[i][0].transcript;
+}
+else {
+document.getElementById("chatSubs").textContent+=`${textList[i][0].transcript} `;
+}
+}
+}
 
 recognition.onspeechend = async () => {
-
-recognition.onresult = async (event) => {
-text= await event.results;
-}
 
 const response= await fetch("/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({"query": text})});
 
