@@ -4,7 +4,7 @@ let fillerWords= ["uh", "um", "er", "ah", "hmm", "like", "so", "well", "actually
 
 function endChat(event) {
 recognition.stop();
-window.location.href="/Results";
+window.location.href="/results";
 }
 
 try {
