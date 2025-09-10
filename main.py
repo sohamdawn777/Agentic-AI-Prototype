@@ -50,4 +50,4 @@ agent=initialize_agent(tools=tools, llm=llm, agent=AgentType.CONVERSATIONAL_REAC
 @app.post("/query", response_class=JSONResponse)
 async def chat(data: dict=Body(...)):
     AIresponse= agent.run(data["query"])
-    return {"resp": AIResponse}
+    return {"resp": AIresponse}
