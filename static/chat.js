@@ -18,7 +18,7 @@ recognition.continuous= true;
 let text=""; 
 let textList;
 
-const utterance= new SpeechSynthesisUtterance(text);
+const utterance= new SpeechSynthesisUtterance();
 utterance.lang= "en-US";
 utterance.pitch= "1.0";
 utterance.rate= "1.0";
@@ -40,6 +40,7 @@ recognition.onspeechend = async () => {
 
 const response= await fetch("/query", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({"query": text})});
 
+utterance.text= text;
 speechSynthesis.speak(utterance);
 
 }
