@@ -18,7 +18,7 @@ def chatWindow(request: Request):
     return templates.TemplateResponse("chatWindow.html",{"request": request})
 
 @app.post("/query", response_class=JSONResponse)
-async def chat():
+async def chat(data: dict=Body(...)):
 
 
 
