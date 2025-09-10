@@ -11,11 +11,8 @@ console.log(error);
 const SpeechRecognition= window.SpeechRecognition || window.webkitSpeechRecognition; 
 
 const recognition= new SpeechRecognition(); 
-
 recognition.lang= "en-US"; 
-
 recognition.interimResults= true; 
-
 recognition.continuous= true; 
 
 let text; 
@@ -29,7 +26,7 @@ utterance.volume= "1.0";
 
 recognition.onspeechend = async () => {
 
-recognition.onresult = async(event) => {
+recognition.onresult = async (event) => {
 text= await event.results;
 }
 
@@ -38,7 +35,4 @@ const response= await fetch("/chat", { method: "POST", headers: { "Content-Type"
 speechSynthesis.speak(utterance);
 
 }
-
-recognition.start();
-
 }
