@@ -27,7 +27,7 @@ recognition.onspeechend = async () => {
 
 let text;
 recognition.onresult = async(event) => {
-text=await event.results;
+text= await event.results;
 }
 
 const response= await fetch("/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({"query": text})});
