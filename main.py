@@ -22,6 +22,9 @@ def homepage(request: Request):
 def chatWindow(request: Request):
     return templates.TemplateResponse("chatWindow.html",{"request": request})
 
+llm= ChatGoogleGenerativeAI(model= "gemini-2.5-pro", api_key="")
+
+
 @app.post("/query", response_class=JSONResponse)
 async def chat(data: dict=Body(...)):
 
