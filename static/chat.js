@@ -17,7 +17,7 @@ recognition.lang= "en-US";
 recognition.interimResults= true; 
 recognition.continuous= true; 
 
-let a=0,
+let a=0;
 let b=0;
 let text=""; 
 let textList;
