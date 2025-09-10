@@ -1,5 +1,7 @@
 window.onload = async () => {
 
+let fillerWords= ["uh", "um", "er", "ah", "hmm", "like", "so", "well", "actually", "basically", "literally", "right", "ok", "okay"];
+
 try {
 const voice= await navigator.mediaDevices.getUserMedia({
 audio: true, video: false });
