@@ -33,6 +33,8 @@ utterance.pitch= "1.0";
 utterance.rate= "1.0";
 utterance.volume= "1.0";
 
+recognition.start();
+
 recognition.onresult = (event) => {
 textList= event.results;
 for (let i=0; i<=textList.length-1; i++) {
