@@ -14,7 +14,7 @@ def homepage(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
 @app.get("/chat", response_class= HTMLResponse)
-async def chat(request: Request):
+def chat(request: Request):
     return templates.TemplateResponse("chatWindow.html",{"request": request})
 
 @app.post("/query", response_class=JSONResponse)
