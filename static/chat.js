@@ -38,7 +38,7 @@ document.getElementById("chatSubs").textContent+=`${textList[i][0].transcript} `
 
 recognition.onspeechend = async () => {
 
-const response= await fetch("/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({"query": text})});
+const response= await fetch("/query", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({"query": text})});
 
 speechSynthesis.speak(utterance);
 
