@@ -2,11 +2,16 @@ from fastapi import FastAPI, Request, Body
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from langchain_google_genai import ChatGoogleGenerativeAI
-from langchain.agents import interactive_agent, AgentType, Tool, initialize_agent
+from langchain_google_vertexai import ChatVertexAI
+from langchain.agents import AgentType, Tool, initialize_agent
 from langchain.memory import ConversationBufferMemory 
+from dotenv import load_dotenv
+import os
 
-llm= ChatGoogleGenerativeAI(model= "gemini-2.5-pro", api_key="")
+load_dotenv("auth.env")
+os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
+
+llm= ChatVertexAI(model= "gemini-2.5-pro")
 
 def summary(input):
     prompt=f"Summarize the full text given below in 2 to 3 sentences\n\n{input}"
