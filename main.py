@@ -13,23 +13,24 @@ gemini_key=os.getenv("GOOGLE_API_KEY")
 
 llm= ChatGoogleGenerativeAI(model= "gemini-2.5-pro", api_key=gemini_key)
 
-def summary(input):
-    prompt=f"Summarize the full text given below in 2 to 3 sentences\n\n{input}"
+def summary(text):
+    prompt=f"Summarize the full text given below in 2 to 3 sentences\n\n{text}"
     return llm.invoke(prompt).content
 
-def sentimentAnalysis(input):
-    prompt = f"Analyze the sentiment of the following text. Reply with Positive, Negative, or Neutral:\n\n{input}"
+def sentimentAnalysis(text):
+    prompt = f"Analyze the sentiment of the following text. Reply with Positive, Negative, or Neutral:\n\n{text}"
     return llm.invoke(prompt).content
 
-def toneAnalysis(input):
-    prompt=f"Detect the tone (formal, casual, nervous, confident, etc.) of this text:\n\n{input}"
+def toneAnalysis(text):
+    prompt=f"Detect the tone (formal, casual, nervous, confident, etc.) of this text:\n\n{text}"
     return llm.invoke(prompt).content
 
-def advice(input):
-    prompt=f"Based on this text, give one short motivational advice:\n\n{input}"
+def advice(summary, sentimentanalysis, toneanalysis):
+    prompt=f"Based on this text, give one short motivational advice:\nThis is the summary:\n{summary}\nThis is the analyzed sentiment:\n{sentimentanalysis}\nThis is the analyzed tone:\n{toneanalysis}"
     return llm.invoke(prompt).content
 
-def response(
+def response(summary, sentimentanalysis, toneanalysis, advice):
+    prompt=f"Combine the results in a human friendly single message:\nThis is the summary:\n{summary}\nThis is the analyzed sentiment:\n{sentimentanalysis}\nThis is the analyzed tone:\n{toneanalysis}\nThis is the final advice generated:\n{advice}"
 
 app= FastAPI()
 
@@ -50,16 +51,18 @@ memory= ConversationBufferMemory(memory_key="chat_history", return_messages=True
 llmNode=LLMNode(llm=llm, prompt_template="Here is an upcoming text snippet. Your job is to be a social coach to the user. Be empathetic, supportive but also practical in your responses.", input_keys=[], output_key="", memory=memory)
 
 toolNode1=ToolNode(tool=summary, input_keys=["input"], output_key="summary")
-toolNode2=ToolNode(tool=sentimentAnalysis, input_keys=["input"], output_key="sentimentAnalysis")
-toolNode3=ToolNode(tool=toneAnalysis, input_keys=["input"], output_key="toneAnalysis")
-toolNode4=ToolNode(tool=advice, input_keys=["summary", "sentimentAnalysis", "toneAnalysis"], output_key="advice")
-toolNode5=ToolNode(tool=response, input_keys=["summary","sentimentAnalysis", "toneAnalysis", "advice"], output_key="finalResponse")
+toolNode2=ToolNode(tool=sentimentAnalysis, input_keys=["input"], output_key="sentimentanalysis")
+toolNode3=ToolNode(tool=toneAnalysis, input_keys=["input"], output_key="toneanalysis")
+toolNode4=ToolNode(tool=advice, input_keys=["summary", "sentimentanalysis", "toneanalysis"], output_key="advice")
+toolNode5=ToolNode(tool=response, input_keys=["summary","sentimentanalysis", "toneanalysis", "advice"], output_key="finalResponse")
 
 graph=Graph()
+graph.add_node("general_node", llmNode)
 graph.add_node("summary_node", toolNode1)
 graph.add_node("sentiment_node", toolNode2)
 graph.add_node("tone_node", toolNode3)
 graph.add_node("advice_node", toolNode4, parent_nodes=["summary_node", "sentiment_node", "tone_node"])
+graph.add_node("response_node", toolNode5, parent_nodes=["summary_node", "sentiment_node", "tone_node", "response_node"])
 
 inputs={}
 
@@ -67,4 +70,4 @@ inputs={}
 async def chat(data: dict=Body(...)):
     inputs["input"]=data["query"]
     outputs=graph.run(inputs)
-    return outputs
+    return {"resp": outputs["finalResponse"]}
