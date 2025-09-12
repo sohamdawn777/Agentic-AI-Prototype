@@ -4,7 +4,6 @@ let fillerWords= ["uh", "um", "er", "ah", "hmm", "like", "so", "well", "actually
 
 function endChat(event) {
 recognition.stop();
-//window.location.href="/results";
 }
 
 const SpeechRecognition= window.SpeechRecognition || window.webkitSpeechRecognition; 
@@ -14,18 +13,9 @@ recognition.lang= "en-US";
 recognition.interimResults= true; 
 recognition.continuous= true; 
 
-let a=0;
-let b=0;
 let text=""; 
 let textList;
-let lastLength=0;
 let interimText="";
-let paceText="";
-let splitArray;
-let splitArray2;
-let count=0;
-
-document.getElementById("chatSubs").textContent="";
 
 const utterance= new SpeechSynthesisUtterance();
 utterance.lang= "en-US";
@@ -43,39 +33,11 @@ text+= textList[i][0].transcript;
 }
 else {
 interimText= textList[i][0].transcript;
-
-//paceText+= interimText;
-
-document.getElementById("chatSubs").textContent= interimText;
-
-splitArray= lastText.split(" ");
-for (let j of splitArray) {
-if (fillerWords.includes(j.toLowerCase())) {
-count++;
-document.getElementById("fillerWords").textContent= `Filler Word Count: ${count}`;
 }
 }
 }
-}
-}
-
-/*setInterval(() => {
-splitArray2= paceText.split(" ");
-paceText="";
-let paceDiv= document.createElement("div");
-paceDiv.id= "paceDiv";
-paceDiv.textContent= `Pace (Last 30s) ${(splitArray2.length)*4}`;
-document.body.appendChild(paceDiv);
-a+=(splitArray2.length)*4;
-b+=1;
-},15000);*/
 
 recognition.onspeechend = async () => {
-
-/*let finalPace= document.createElement("div");
-finalPace.id= "finalPace";
-finalPace.textContent= `Average Pace: ${a/b}`;
-document.body.appendChild(finalPace);*/
 
 const response= await fetch("/query", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({"query": text})});
 
