@@ -2,9 +2,11 @@ from fastapi import FastAPI, Request, Body
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from langchain_google_genai import ChatGoogleGenerativeAI
-from langchain.agents import AgentType, Tool, initialize_agent
+from langchain.agents.graph import Graph, Node
+from langchain.chat_models import ChatGoogleGenerativeAI
 from langchain.memory import ConversationBufferMemory 
+from langchain.agents.graph.tool_node import ToolNode
+from langchain.agents.graph.llm_node import LLMNode
 import os
 
 gemini_key=os.getenv("GOOGLE_API_KEY")
