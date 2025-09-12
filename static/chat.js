@@ -32,9 +32,9 @@ text+= textList[i][0].transcript;
 else {
 interimText+= textList[i][0].transcript;
 }
+}
 document.getElementById("chatSubs").textContent= interimText;
 interimText= "";
-}
 }
 
 recognition.onspeechend = async () => {
