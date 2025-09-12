@@ -1,4 +1,4 @@
-flask==2.3.6
+flask==2.3.3
 uvicorn==0.23.1
 langchain==0.3.27
 langchain-google-genai==2.1.10
