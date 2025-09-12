@@ -64,4 +64,4 @@ inputs={}
 async def chat(data: dict=Body(...)):
     inputs["input"]=data["query"]
     outputs=graph.run(inputs)
-    return {"resp": outputs}
+    return outputs
