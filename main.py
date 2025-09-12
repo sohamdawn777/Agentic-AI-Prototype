@@ -29,6 +29,8 @@ def advice(input):
     prompt=f"Based on this text, give one short motivational advice:\n\n{input}"
     return llm.invoke(prompt).content
 
+def response(
+
 app= FastAPI()
 
 app.mount("/static", StaticFiles(directory="static"), name="static")  
@@ -47,10 +49,11 @@ memory= ConversationBufferMemory(memory_key="chat_history", return_messages=True
 
 llmNode=LLMNode(llm=llm, prompt_template="Here is an upcoming text snippet. Your job is to be a social coach to the user. Be empathetic, supportive but also practical in your responses.", input_keys=[], output_key="", memory=memory)
 
-toolNode1= ToolNode(tool=summary, input_keys=["input"], output_key="summary")
-toolNode2= ToolNode(tool=sentimentAnalysis, input_keys=["input"], output_key="sentimentAnalysis")
-toolNode3= ToolNode(tool=toneAnalysis, input_keys=["input"], output_key="toneAnalysis")
-toolNode4= ToolNode(tool=advice, input_keys=["summary", "sentimentAnalysis", "toneAnalysis"], output_key="advice")
+toolNode1=ToolNode(tool=summary, input_keys=["input"], output_key="summary")
+toolNode2=ToolNode(tool=sentimentAnalysis, input_keys=["input"], output_key="sentimentAnalysis")
+toolNode3=ToolNode(tool=toneAnalysis, input_keys=["input"], output_key="toneAnalysis")
+toolNode4=ToolNode(tool=advice, input_keys=["summary", "sentimentAnalysis", "toneAnalysis"], output_key="advice")
+toolNode5=ToolNode(tool=response, input_keys=["summary","sentimentAnalysis", "toneAnalysis", "advice"], output_key="finalResponse")
 
 graph=Graph()
 graph.add_node("summary_node", toolNode1)
