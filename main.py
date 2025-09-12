@@ -24,20 +24,14 @@ def advice(input):
     prompt=f"Based on this text, give one short motivational advice:\n\n{input}"
     return llm.invoke(prompt).content
 
-app= FastAPI()
+app=Flask(__name__)
+@app.route("/")
+def homepage():
+    return render_template("index.html")
 
-templates= Jinja2Templates(directory= "templates")
-templates.env.globals["url_for"]=app.url_path_for
-
-app.mount("/static", StaticFiles(directory="static"), name="static")  
-
-@app.get("/",response_class=HTMLResponse)
-async def homepage(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
-
-@app.get("/chat", response_class= HTMLResponse)
-async def chatWindow(request: Request):
-    return templates.TemplateResponse("chatWindow.html",{"request": request})
+@app.route("/chat")
+def chatWindow():
+    return render_template("chatWindow.html")
 
 tool1= Tool(name="summary", func=summary, description="This summarizes the user query.")
 tool2= Tool(name="sentimentAnalysis", func=sentimentAnalysis, description="This analyses the sentiments of the user query.")
@@ -49,7 +43,8 @@ memory= ConversationBufferMemory(memory_key="chat_history", return_messages=True
 
 agent=initialize_agent(tools=tools, llm=llm, agent=AgentType.CONVERSATIONAL_REACT_DESCRIPTION, memory=memory, verbose=True)
 
-@app.post("/query", response_class=JSONResponse)
-async def chat(data: dict=Body(...)):
+@app.route("/query", methods=["POST"])
+def chat():
+    data=request.get_json()
     AIresponse= agent.run(data["query"])
-    return {"resp": AIresponse}
+    return jsonify({"resp": AIresponse})
