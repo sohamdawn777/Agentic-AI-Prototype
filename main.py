@@ -48,3 +48,6 @@ def chat():
     data=request.get_json()
     AIresponse= agent.run(data["query"])
     return jsonify({"resp": AIresponse})
+if __name__=="__main__":
+    port=int(os.environ.get("PORT",5000))
+    app.run(host="0.0.0.0", port=port)    
