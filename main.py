@@ -43,6 +43,8 @@ def homepage(request: Request):
 def chatWindow(request: Request):
     return templates.TemplateResponse("chatWindow.html",{"request": request})
 
+llmNode=LLMNode(llm=llm, prompt_template="Here is an upcoming text snippet. Your job is to be a social coach for the user. Be empathetic, supportive but also practical in your responses.", input_keys=[], output_key=[])
+
 tool1= Tool(name="summary", func=summary, description="This summarizes the user query.")
 tool2= Tool(name="sentimentAnalysis", func=sentimentAnalysis, description="This analyses the sentiments of the user query.")
 tool3= Tool(name="toneAnalysis", func=toneAnalysis, description="This analyses the tone of the user query.")
