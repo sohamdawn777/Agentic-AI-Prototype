@@ -1,6 +1,6 @@
 fastapi
 uvicorn
-git+https://github.com/langgraph/langgraph.git
 langchain
 langchain-google-genai
 jinja2
+git+https://github.com/langgraph/langgraph/archive/refs/heads/main.zip
