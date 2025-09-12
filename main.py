@@ -30,6 +30,7 @@ def advice(input):
 app= FastAPI()
 
 templates= Jinja2Templates(directory= "templates")
+templates.env.globals["url_for"]=app.url_path_for
 
 app.mount("/static", StaticFiles(directory="static"), name="static")  
 
