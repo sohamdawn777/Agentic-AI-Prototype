@@ -1,7 +1,4 @@
-from fastapi import FastAPI, Request, Body
-from fastapi.responses import HTMLResponse, JSONResponse
-from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
+from flask import Flask, render_template, request, jsonify
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.agents import AgentType, Tool, initialize_agent
 from langchain.memory import ConversationBufferMemory 
