@@ -3,4 +3,3 @@ uvicorn
 langchain
 langchain-google-genai
 jinja2
-https://github.com/langgraph/langgraph/archive/refs/heads/main.zip
