@@ -24,14 +24,6 @@ def sentimentAnalysis(text):
 def toneAnalysis(text):
     prompt=f"Detect the tone (formal, casual, nervous, confident, etc.) of this text:\n\n{text}"
     return llm.invoke(prompt).content
-
-def advice(summary, sentimentanalysis, toneanalysis):
-    prompt=f"Based on this text, give one short motivational advice:\nThis is the summary:\n{summary}\nThis is the analyzed sentiment:\n{sentimentanalysis}\nThis is the analyzed tone:\n{toneanalysis}"
-    return llm.invoke(prompt).content
-
-def response(summary, sentimentanalysis, toneanalysis, advice):
-    prompt=f"Combine the results in a human friendly single message:\nThis is the summary:\n{summary}\nThis is the analyzed sentiment:\n{sentimentanalysis}\nThis is the analyzed tone:\n{toneanalysis}\nThis is the final advice generated:\n{advice}"
-    return llm.invoke(prompt).content
     
 app= FastAPI()
 
@@ -49,13 +41,13 @@ def chatWindow(request: Request):
 
 memory= ConversationBufferMemory(memory_key="chat_history", return_messages=True)
 
-llmNode=LLMNode(llm=llm, prompt_template="Here is an upcoming text snippet. Your job is to be a social coach to the user. Be empathetic, supportive but also practical in your responses.", input_keys=[], output_key="", memory=memory)
-
 toolNode1=ToolNode(tool=summary, input_keys=["input"], output_key="summary")
 toolNode2=ToolNode(tool=sentimentAnalysis, input_keys=["input"], output_key="sentimentanalysis")
 toolNode3=ToolNode(tool=toneAnalysis, input_keys=["input"], output_key="toneanalysis")
-toolNode4=ToolNode(tool=advice, input_keys=["summary", "sentimentanalysis", "toneanalysis"], output_key="advice")
-toolNode5=ToolNode(tool=response, input_keys=["summary","sentimentanalysis", "toneanalysis", "advice"], output_key="finalResponse")
+
+llmNode1=LLMNode(prompt="Based on this text, give one short motivational advice:\nThis is the summary:\n{summary}\nThis is the analyzed sentiment:\n{sentimentanalysis}\nThis is the analyzed tone:\n{toneanalysis}", input_keys=["summary", "sentimentanalysis", "toneanalysis"], output_key="advice", memory=memory)
+
+llmNode2=LLMNode(prompt="Combine the results in a human friendly single message:\nThis is the summary:\n{summary}\nThis is the analyzed sentiment:\n{sentimentanalysis}\nThis is the analyzed tone:\n{toneanalysis}\nThis is the final advice generated:\n{advice}", input_keys=["summary","sentimentanalysis", "toneanalysis", "advice"], output_key="finalResponse", memory=memory)
 
 graph=Graph()
 graph.add_node("general_node", llmNode)
