@@ -1,7 +1,5 @@
 window.onload = async () => {
 
-let fillerWords= ["uh", "um", "er", "ah", "hmm", "like", "so", "well", "actually", "basically", "literally", "right", "ok", "okay"];
-
 function endChat(event) {
 recognition.stop();
 }
