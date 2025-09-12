@@ -1,4 +1,4 @@
-window.onload = () => {
+window.onload = async() => {
 
 function endChat(event) {
 recognition.stop();
