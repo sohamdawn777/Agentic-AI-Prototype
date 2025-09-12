@@ -50,12 +50,11 @@ llmNode1=LLMNode(prompt="Based on this text, give one short motivational advice:
 llmNode2=LLMNode(prompt="Combine the results in a human friendly single message:\nThis is the summary:\n{summary}\nThis is the analyzed sentiment:\n{sentimentanalysis}\nThis is the analyzed tone:\n{toneanalysis}\nThis is the final advice generated:\n{advice}", input_keys=["summary","sentimentanalysis", "toneanalysis", "advice"], output_key="finalResponse", memory=memory)
 
 graph=Graph()
-graph.add_node("general_node", llmNode)
 graph.add_node("summary_node", toolNode1)
 graph.add_node("sentiment_node", toolNode2)
 graph.add_node("tone_node", toolNode3)
-graph.add_node("advice_node", toolNode4, parent_nodes=["summary_node", "sentiment_node", "tone_node"])
-graph.add_node("response_node", toolNode5, parent_nodes=["summary_node", "sentiment_node", "tone_node", "advice_node"])
+graph.add_node("advice_node", llmNode1, parent_nodes=["summary_node", "sentiment_node", "tone_node"])
+graph.add_node("response_node", llmNode2, parent_nodes=["summary_node", "sentiment_node", "tone_node", "advice_node"])
 
 inputs={}
 
