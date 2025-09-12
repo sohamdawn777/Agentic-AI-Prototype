@@ -45,15 +45,9 @@ toolNode1=ToolNode(tool=summary, input_keys=["input"], output_key="summary")
 toolNode2=ToolNode(tool=sentimentAnalysis, input_keys=["input"], output_key="sentimentanalysis")
 toolNode3=ToolNode(tool=toneAnalysis, input_keys=["input"], output_key="toneanalysis")
 
-llmNode1=LLMNode(prompt="Here is the conversation so far:
-{chat_history}
+llmNode1=LLMNode(prompt="Here is the conversation so far:\n{chat_history}\nBased on this text, give one short motivational advice:\nThis is the summary:\n{summary}\nThis is the analyzed sentiment:\n{sentimentanalysis}\nThis is the analyzed tone:\n{toneanalysis}", input_keys=["summary", "sentimentanalysis", "toneanalysis", "chat_history"], output_key="advice", memory=memory)
 
-Based on this text, give one short motivational advice:\nThis is the summary:\n{summary}\nThis is the analyzed sentiment:\n{sentimentanalysis}\nThis is the analyzed tone:\n{toneanalysis}", input_keys=["summary", "sentimentanalysis", "toneanalysis", "chat_history"], output_key="advice", memory=memory)
-
-llmNode2=LLMNode(prompt="Here is the conversation so far:
-{chat_history}
-
-Combine the results in a human friendly single message:\nThis is the summary:\n{summary}\nThis is the analyzed sentiment:\n{sentimentanalysis}\nThis is the analyzed tone:\n{toneanalysis}\nThis is the final advice generated:\n{advice}", input_keys=["summary","sentimentanalysis", "toneanalysis", "advice", "chat_history"], output_key="finalResponse", memory=memory)
+llmNode2=LLMNode(prompt="Here is the conversation so far:\n{chat_history}\nCombine the results in a human friendly single message:\nThis is the summary:\n{summary}\nThis is the analyzed sentiment:\n{sentimentanalysis}\nThis is the analyzed tone:\n{toneanalysis}\nThis is the final advice generated:\n{advice}", input_keys=["summary","sentimentanalysis", "toneanalysis", "advice", "chat_history"], output_key="finalResponse", memory=memory)
 
 graph=Graph()
 graph.add_node("summary_node", toolNode1)
