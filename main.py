@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv("auth.env")
-os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"]=os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
 
 llm= ChatVertexAI(model= "gemini-2.5-pro")
 
