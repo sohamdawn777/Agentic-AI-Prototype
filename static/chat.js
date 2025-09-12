@@ -18,7 +18,8 @@ let a=0;
 let b=0;
 let text=""; 
 let textList;
-let lastText="";
+let lastLength=0;
+let interimText="";
 let paceText="";
 let splitArray;
 let splitArray2;
@@ -41,11 +42,13 @@ if (textList[i].isFinal===true) {
 text+= textList[i][0].transcript;
 }
 else {
-lastText= textList[i][0].transcript.slice(lastText.length, textList[i][0].transcript.length);
+interimText= textList[i][0].transcript.slice(lastLength, textList[i][0].transcript.length);
 
-paceText+= lastText;
+lastLength=textList[i][0].transcript.length;
 
-document.getElementById("chatSubs").textContent+= lastText;
+//paceText+= interimText;
+
+document.getElementById("chatSubs").textContent+= interimText;
 
 splitArray= lastText.split(" ");
 for (let j of splitArray) {
@@ -58,7 +61,7 @@ document.getElementById("fillerWords").textContent= `Filler Word Count: ${count}
 }
 }
 
-setInterval(() => {
+/*setInterval(() => {
 splitArray2= paceText.split(" ");
 paceText="";
 let paceDiv= document.createElement("div");
@@ -67,14 +70,14 @@ paceDiv.textContent= `Pace (Last 30s) ${(splitArray2.length)*4}`;
 document.body.appendChild(paceDiv);
 a+=(splitArray2.length)*4;
 b+=1;
-},15000);
+},15000);*/
 
 recognition.onspeechend = async () => {
 
-let finalPace= document.createElement("div");
+/*let finalPace= document.createElement("div");
 finalPace.id= "finalPace";
 finalPace.textContent= `Average Pace: ${a/b}`;
-document.body.appendChild(finalPace);
+document.body.appendChild(finalPace);*/
 
 const response= await fetch("/query", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({"query": text})});
 
