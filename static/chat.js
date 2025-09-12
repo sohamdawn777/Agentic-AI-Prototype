@@ -45,6 +45,7 @@ utterance.text= res.resp;
 speechSynthesis.speak(utterance);
 
 }
+}
 
 document.getElementById("b2").addEventListener("click", endChat);
 }
