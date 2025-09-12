@@ -7,7 +7,7 @@ recognition.stop();
 //window.location.href="/results";
 }
 
-document.getElementById("b3").addEventListener("click", async (event) => {
+/*document.getElementById("b3").addEventListener("click", async (event) => {
 try {
 const voice= await navigator.mediaDevices.getUserMedia({
 audio: true, video: false });
@@ -16,7 +16,7 @@ document.body.removeChild(document.getElementById("b3"));
 catch (error) {
 console.log(error);
 }
-});
+});*/
 
 const SpeechRecognition= window.SpeechRecognition || window.webkitSpeechRecognition; 
 
