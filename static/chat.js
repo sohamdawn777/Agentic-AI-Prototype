@@ -30,9 +30,10 @@ if (textList[i].isFinal===true) {
 text+= textList[i][0].transcript;
 }
 else {
-interimText= textList[i][0].transcript;
-document.getElementById("chatSubs").textContent= interimText;
+interimText+= textList[i][0].transcript;
 }
+document.getElementById("chatSubs").textContent= interimText;
+interimText= "";
 }
 }
 
