@@ -43,19 +43,24 @@ def homepage(request: Request):
 def chatWindow(request: Request):
     return templates.TemplateResponse("chatWindow.html",{"request": request})
 
-llmNode=LLMNode(llm=llm, prompt_template="Here is an upcoming text snippet. Your job is to be a social coach for the user. Be empathetic, supportive but also practical in your responses.", input_keys=[], output_key=[])
-
-tool1= Tool(name="summary", func=summary, description="This summarizes the user query.")
-tool2= Tool(name="sentimentAnalysis", func=sentimentAnalysis, description="This analyses the sentiments of the user query.")
-tool3= Tool(name="toneAnalysis", func=toneAnalysis, description="This analyses the tone of the user query.")
-tool4= Tool(name="advice", func=advice, description="This gives a short advice to the user.")
-tools= [tool1, tool2, tool3, tool4]
-
 memory= ConversationBufferMemory(memory_key="chat_history", return_messages=True)
 
-agent=initialize_agent(tools=tools, llm=llm, agent=AgentType.CONVERSATIONAL_REACT_DESCRIPTION, memory=memory, verbose=True)
+llmNode=LLMNode(llm=llm, prompt_template="Here is an upcoming text snippet. Your job is to be a social coach to the user. Be empathetic, supportive but also practical in your responses.", input_keys=[], output_key="", memory=memory)
+
+toolNode1= ToolNode(tool=summary, input_keys=["input"], output_key="summary")
+toolNode2= ToolNode(tool=sentimentAnalysis, input_keys=["input"], output_key="sentimentAnalysis")
+toolNode3= ToolNode(tool=toneAnalysis, input_keys=["input"], output_key="toneAnalysis")
+toolNode4= ToolNode(tool=advice, input_keys=["summary", "sentimentAnalysis", "toneAnalysis"], output_key="advice")
+
+graph=Graph()
+graph.add_node("summary_node", toolNode1)
+graph.add_node("sentiment_node", toolNode2)
+graph.add_node("tone_node", toolNode3)
+graph.add_node("advice_node", toolNode4, parent_nodes=["summary_node", "sentiment_node", "tone_node"])
+
+inputs={}
 
 @app.post("/query", response_class=JSONResponse)
 async def chat(data: dict=Body(...)):
-    AIresponse= agent.run(data["query"])
+    AIresponse= .run(data["query"])
     return {"resp": AIresponse}
