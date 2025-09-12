@@ -62,5 +62,6 @@ inputs={}
 
 @app.post("/query", response_class=JSONResponse)
 async def chat(data: dict=Body(...)):
-    AIresponse= .run(data["query"])
-    return {"resp": AIresponse}
+    inputs["input"]=data["query"]
+    outputs=graph.run(inputs)
+    return {"resp": outputs}
