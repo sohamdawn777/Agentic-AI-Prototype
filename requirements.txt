@@ -1,5 +1,5 @@
-fastapi
-uvicorn
-langchain
-langchain-google-genai
-jinja2
+fastapi==0.111.0
+uvicorn==0.23.1
+langchain==0.1.236
+langchain-google-genai==0.0.18
+jinja2==3.1.3
