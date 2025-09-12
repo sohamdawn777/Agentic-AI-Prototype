@@ -24,6 +24,8 @@ let splitArray;
 let splitArray2;
 let count=0;
 
+document.getElementById("chatSubs").textContent="";
+
 const utterance= new SpeechSynthesisUtterance();
 utterance.lang= "en-US";
 utterance.pitch= "1.0";
