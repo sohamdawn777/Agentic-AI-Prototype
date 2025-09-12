@@ -24,7 +24,7 @@ def sentimentAnalysis(text):
 def toneAnalysis(text):
     prompt=f"Detect the tone (formal, casual, nervous, confident, etc.) of this text:\n\n{text}"
     return llm.invoke(prompt).content
-    
+
 app= FastAPI()
 
 app.mount("/static", StaticFiles(directory="static"), name="static")  
@@ -61,5 +61,7 @@ inputs={}
 @app.post("/query", response_class=JSONResponse)
 async def chat(data: dict=Body(...)):
     inputs["input"]=data["query"]
+    memory.chat_memory.add_user_message(data["query"])
     outputs=graph.run(inputs)
+    memory.chat_memory.add_ai_message(outputs["finalResponse"])
     return {"resp": outputs["finalResponse"]}
