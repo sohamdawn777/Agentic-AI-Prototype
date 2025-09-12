@@ -42,13 +42,11 @@ if (textList[i].isFinal===true) {
 text+= textList[i][0].transcript;
 }
 else {
-interimText= textList[i][0].transcript.slice(lastLength, textList[i][0].transcript.length);
-
-lastLength=textList[i][0].transcript.length;
+interimText= textList[i][0].transcript;
 
 //paceText+= interimText;
 
-document.getElementById("chatSubs").textContent+= interimText;
+document.getElementById("chatSubs").textContent= interimText;
 
 splitArray= lastText.split(" ");
 for (let j of splitArray) {
