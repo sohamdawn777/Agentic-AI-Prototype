@@ -29,16 +29,16 @@ def advice(input):
 
 app= FastAPI()
 
-app.mount("/static", StaticFiles(directory="static"), name="static")  
-
 templates= Jinja2Templates(directory= "templates")
 
+app.mount("/static", StaticFiles(directory="static"), name="static")  
+
 @app.get("/",response_class=HTMLResponse)
-def homepage(request: Request):
+async def homepage(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
 @app.get("/chat", response_class= HTMLResponse)
-def chatWindow(request: Request):
+async def chatWindow(request: Request):
     return templates.TemplateResponse("chatWindow.html",{"request": request})
 
 tool1= Tool(name="summary", func=summary, description="This summarizes the user query.")
