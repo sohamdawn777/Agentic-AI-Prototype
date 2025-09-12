@@ -3,7 +3,7 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from langgraph.graph import Graph, Node
-from langchain-google-genai import ChatGoogleGenerativeAI
+from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.memory import ConversationBufferMemory 
 from langgraph.prebuilt import ToolNode, LLMNode
 import os
