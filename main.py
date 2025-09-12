@@ -31,7 +31,8 @@ def advice(summary, sentimentanalysis, toneanalysis):
 
 def response(summary, sentimentanalysis, toneanalysis, advice):
     prompt=f"Combine the results in a human friendly single message:\nThis is the summary:\n{summary}\nThis is the analyzed sentiment:\n{sentimentanalysis}\nThis is the analyzed tone:\n{toneanalysis}\nThis is the final advice generated:\n{advice}"
-
+    return llm.invoke(prompt).content
+    
 app= FastAPI()
 
 app.mount("/static", StaticFiles(directory="static"), name="static")  
@@ -62,7 +63,7 @@ graph.add_node("summary_node", toolNode1)
 graph.add_node("sentiment_node", toolNode2)
 graph.add_node("tone_node", toolNode3)
 graph.add_node("advice_node", toolNode4, parent_nodes=["summary_node", "sentiment_node", "tone_node"])
-graph.add_node("response_node", toolNode5, parent_nodes=["summary_node", "sentiment_node", "tone_node", "response_node"])
+graph.add_node("response_node", toolNode5, parent_nodes=["summary_node", "sentiment_node", "tone_node", "advice_node"])
 
 inputs={}
 
