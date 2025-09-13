@@ -50,10 +50,9 @@ def chat():
         AIresponse= agent.run(data["query"])
         return jsonify({"resp": AIresponse})
     except Exception as e:
-        for i in range(0,2):
-            AIresponse= agent.run(data["query"])
+        AIresponse= agent.run(data["query"])
         return jsonify({"resp": AIresponse})
-        return jsonify({"resp": "Your Prompt could not be understood."})    
+    return jsonify({"resp": "Your Prompt could not be understood."})    
         
 if __name__=="__main__":
     port=int(os.environ.get("PORT",5000))
