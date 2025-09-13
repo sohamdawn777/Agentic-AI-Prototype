@@ -3,7 +3,7 @@ import os
 from agent import Agent
 
 gemini_key=os.getenv("GOOGLE_API_KEY")
-Agent(gemini_key)
+agentInstance=Agent(gemini_key)
 
 app=Flask(__name__)
 @app.route("/")
@@ -14,12 +14,12 @@ def homepage():
 def chat():
     data=request.get_json()
     try:
-        AIresponse= agent.run(data["query"])
+        AIresponse= agentInstance.run_agent(data["query"])
         return jsonify({"resp": AIresponse})
     except Exception as e:
         try:
-            queryCleaned= agent.run(f"Understand and summarize this query with your own nuance and understanding: \n{data['query']}")
-            AIresponse= agent.run(queryCleaned)
+            queryCleaned= agentInstance.run_agent(f"Understand and summarize this query with your own nuance and understanding: \n{data['query']}")
+            AIresponse= agentInstance.run_agent(queryCleaned)
             return jsonify({"resp": AIresponse})
         except Exception as e:
             return jsonify({"resp": "Your response could not be understood"})    
