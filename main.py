@@ -8,6 +8,8 @@ gemini_key=os.getenv("GOOGLE_API_KEY")
 
 llm= ChatGoogleGenerativeAI(model= "gemini-2.5-flash", api_key=gemini_key)
 
+def rePrompt(input):
+
 def summary(input):
     prompt=f"Summarize the full text given below in 2 to 3 sentences\n\n{input}"
     return llm.invoke(prompt).content
@@ -41,7 +43,7 @@ tools= [tool1, tool2, tool3, tool4]
 
 memory= ConversationBufferMemory(memory_key="chat_history", return_messages=True)
 
-agent=initialize_agent(tools=tools, llm=llm, agent=AgentType.CONVERSATIONAL_REACT_DESCRIPTION, memory=memory, verbose=True)
+agent=initialize_agent(tools=tools, llm=llm, agent=AgentType.CONVERSATIONAL_REACT_DESCRIPTION, memory=memory, verbose=True, handle_parsing_errors=rePrompt)
 
 @app.route("/query", methods=["POST"])
 def chat():
