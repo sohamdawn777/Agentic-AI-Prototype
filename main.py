@@ -1,10 +1,12 @@
 from flask import Flask, render_template, request, jsonify
 import os
 from agent import Agent
+from routing import Routing
 
 gemini_key=os.getenv("GOOGLE_API_KEY")
 agentInstance=Agent(gemini_key)
 agentInstance.initialize_the_agent()
+routingInstance=Routing(
 
 app=Flask(__name__)
 @app.route("/")
