@@ -47,6 +47,8 @@ const res= await response.json();
 utterance.text= res.resp;
 speechSynthesis.speak(utterance);
 
+recognition.start();
+
 }
 
 document.getElementById("b2").addEventListener("click", endChat);
