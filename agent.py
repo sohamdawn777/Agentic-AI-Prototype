@@ -26,7 +26,7 @@ class Agent:
         self.creative_tools=[tool1, tool2, tool3, tool4]
     def initialize_creative_agent(self):
         self.setup_creative_tools()
-        self.agent=initialize_agent(tools=self.creative_tools, llm=self.llm, agent=AgentType.CONVERSATIONAL_REACT_DESCRIPTION, memory=self.memory, verbose=True)
+        self.creative_agent=initialize_agent(tools=self.creative_tools, llm=self.llm, agent=AgentType.CONVERSATIONAL_REACT_DESCRIPTION, memory=self.memory, verbose=True)
     def setup_fallback_tools(self):
         def clarify(input):
             return "I'm not sure I fully understand. Could you clarify your request?"
@@ -40,6 +40,6 @@ class Agent:
         self.fallback_tools=[tool1, tool2, tool3]
     def initialize_fallback_agent(self):
         self.setup_fallback_tools()
-        self.agent=initialize_agent(tools=self.fallback_tools, llm=self.llm, agent=AgentType.CONVERSATIONAL_REACT_DESCRIPTION, memory=self.memory, verbose=True)
+        self.fallback_agent=initialize_agent(tools=self.fallback_tools, llm=self.llm, agent=AgentType.CONVERSATIONAL_REACT_DESCRIPTION, memory=self.memory, verbose=True)
     def run_agent(self, query):
         return self.agent.run(query)    
