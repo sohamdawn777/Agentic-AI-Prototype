@@ -4,6 +4,7 @@ from agent import Agent
 
 gemini_key=os.getenv("GOOGLE_API_KEY")
 agentInstance=Agent(gemini_key)
+agentInstance.initialize_the_agent
 
 app=Flask(__name__)
 @app.route("/")
