@@ -1,5 +1,6 @@
-function chatWindow(event) {
-window.location.href="/chat";
+async function send(event) {
+let userQuery= document.getElementById("text").value;
+let dataSent= await fetch("/query", 
 }
 
-document.getElementById("b1").addEventListener("click", chatWindow);
+document.getElementById("b1").addEventListener("click", send);
