@@ -36,7 +36,8 @@ else {
 let transcript = event.results[i][0].transcript;
 let confidence = event.results[i][0].confidence;
 let finality = event.results[i].isFinal ? "✅ Final" : "⌛ Interim";
-debug += `<p>${finality}: ${transcript} (conf: ${confidence})</p>`; document.getElementById("chatSubs").innerHTML = debug;
+debug += `<p>${finality}: ${transcript} (conf: ${confidence})</p>`;
+document.getElementById("chatSubs").innerHTML = debug;
 
 if (i===textList.length-1) {
 interimText= textList[i][0].transcript;
