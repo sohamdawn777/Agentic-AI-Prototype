@@ -2,7 +2,7 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.agents import AgentType, Tool, initialize_agent
 from langchain.memory import ConversationBufferMemory 
 
-class Agent():
+class Agent:
     def __init__(self, gemini_key):
         self.llm= ChatGoogleGenerativeAI(model= "gemini-2.5-flash", api_key=gemini_key)
         self.memory= ConversationBufferMemory(memory_key="chat_history", return_messages=True)
@@ -28,4 +28,4 @@ class Agent():
         self.setup_tools()
         self.agent=initialize_agent(tools=self.tools, llm=self.llm, agent=AgentType.CONVERSATIONAL_REACT_DESCRIPTION, memory=self.memory, verbose=True)
     def run_agent(self, query):
-        self.agent.run(query)    
+        return self.agent.run(query)    
