@@ -45,18 +45,15 @@ agent=initialize_agent(tools=tools, llm=llm, agent=AgentType.CONVERSATIONAL_REAC
 
 @app.route("/query", methods=["POST"])
 def chat():
-    rePromptCount=0
     data=request.get_json()
     try:
         AIresponse= agent.run(data["query"])
         return jsonify({"resp": AIresponse})
     except Exception as e:
-        if rePromptCount<=2:
+        for i in range(0,2):
             AIResponse= agent.run(data["query"])
-            rePromptCount+=1
             return jsonify({"resp": AIresponse})
-        else:
-            return jsonify({"resp": "Your Prompt could not be understood."})    
+        return jsonify({"resp": "Your Prompt could not be understood."})    
         
 if __name__=="__main__":
     port=int(os.environ.get("PORT",5000))
