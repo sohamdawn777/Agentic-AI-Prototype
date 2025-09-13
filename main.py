@@ -51,8 +51,8 @@ def chat():
         return jsonify({"resp": AIresponse})
     except Exception as e:
         for i in range(0,2):
-            AIResponse= agent.run(data["query"])
-            return jsonify({"resp": AIresponse})
+            AIresponse= agent.run(data["query"])
+        return jsonify({"resp": AIresponse})
         return jsonify({"resp": "Your Prompt could not be understood."})    
         
 if __name__=="__main__":
