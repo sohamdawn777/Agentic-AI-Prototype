@@ -1,5 +1,8 @@
 from flask import Flask, render_template, request, jsonify
-from agent import agent
+import os
+from agent import Agent
+
+gemini_key=os.getenv("GOOGLE_API_KEY")
 
 app=Flask(__name__)
 @app.route("/")
