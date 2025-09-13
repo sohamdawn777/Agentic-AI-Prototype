@@ -27,3 +27,5 @@ class Agent():
     def initialize_the_agent(self):
         self.setup_tools()
         self.agent=initialize_agent(tools=self.tools, llm=self.llm, agent=AgentType.CONVERSATIONAL_REACT_DESCRIPTION, memory=self.memory, verbose=True)
+    def run_agent(self, query):
+        self.agent.run(query)    
