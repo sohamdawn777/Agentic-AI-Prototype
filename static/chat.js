@@ -28,7 +28,7 @@ textList= event.results;
 for (let i=0; i<=textList.length-1; i++) {
 if (textList[i].isFinal===true) {
 if (i===textList.length-1) {
-text+= textList[i][0].transcript;
+text= textList[i][0].transcript;
 }
 }
 else {
