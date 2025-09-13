@@ -41,5 +41,7 @@ class Agent:
     def initialize_fallback_agent(self):
         self.setup_fallback_tools()
         self.fallback_agent=initialize_agent(tools=self.fallback_tools, llm=self.llm, agent=AgentType.CONVERSATIONAL_REACT_DESCRIPTION, memory=self.memory, verbose=True)
-    def run_agent(self, query):
-        return self.agent.run(query)    
+    def run_creative_agent(self, query):
+        return self.creative_agent.run(query)   
+    def run_fallback_agebt(self, query):
+        return self.fallback_agent.run(query)     
