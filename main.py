@@ -23,7 +23,7 @@ def chat():
             AIresponse= agentInstance.run_agent(queryCleaned)
             return jsonify({"resp": AIresponse})
         except Exception as e:
-            return jsonify({"resp": "Your response could not be understood"})    
+            return jsonify({"resp": f"Your response could not be understood....{e}"})    
     
 if __name__=="__main__":
     port=int(os.environ.get("PORT",5000))
