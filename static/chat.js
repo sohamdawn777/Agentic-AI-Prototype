@@ -45,9 +45,11 @@ const response= await fetch("/query", { method: "POST", headers: { "Content-Type
 const res= await response.json();
 
 utterance.text= res.resp;
-await speechSynthesis.speak(utterance);
+speechSynthesis.speak(utterance);
 
+utterance.onend = (event) => {
 recognition.start();
+}
 
 }
 
