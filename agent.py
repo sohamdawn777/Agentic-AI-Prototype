@@ -6,7 +6,7 @@ class Agent:
     def __init__(self, gemini_key):
         self.llm= ChatGoogleGenerativeAI(model= "gemini-2.5-flash", api_key=gemini_key)
         self.memory= ConversationBufferMemory(memory_key="chat_history", return_messages=True)
-    def setup_tools(self):
+    def setup_creative_tools(self):
         def summary(input):
             prompt=f"Summarize the full text given below in 2 to 3 sentences\n\n{input}"
             return self.llm.invoke(prompt).content
@@ -24,8 +24,8 @@ class Agent:
         tool3= Tool(name="toneAnalysis", func=toneAnalysis, description="This analyses the tone of the user query.")
         tool4= Tool(name="advice", func=advice, description="This gives a short advice to the user.")
         self.tools=[tool1, tool2, tool3, tool4]
-    def initialize_the_agent(self):
-        self.setup_tools()
+    def initialize_creative_agent(self):
+        self.setup_creative_tools()
         self.agent=initialize_agent(tools=self.tools, llm=self.llm, agent=AgentType.CONVERSATIONAL_REACT_DESCRIPTION, memory=self.memory, verbose=True)
     def run_agent(self, query):
         return self.agent.run(query)    
