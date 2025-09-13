@@ -3,6 +3,7 @@ import os
 from agent import Agent
 
 gemini_key=os.getenv("GOOGLE_API_KEY")
+Agent(gemini_key)
 
 app=Flask(__name__)
 @app.route("/")
