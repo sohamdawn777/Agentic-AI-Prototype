@@ -4,9 +4,15 @@ from agent import Agent
 from routing import Routing
 
 gemini_key=os.getenv("GOOGLE_API_KEY")
-agentInstance=Agent(gemini_key)
-agentInstance.initialize_the_agent()
-routingInstance=Routing(
+
+agentInstance1=Agent(gemini_key)
+agentInstance1.initialize_creative_agent()
+agentInstance2=Agent(gemini_key)
+agentInstance2.initialize_fallback_agent()
+
+routingInstance1=Routing(agentInstance1)
+
+routingInstance2=Routing(agentInstance2)
 
 app=Flask(__name__)
 @app.route("/")
