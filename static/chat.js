@@ -24,12 +24,20 @@ utterance.volume= "1.0";
 recognition.start();
 
 recognition.onresult = (event) => {
+
 textList= event.results;
+let debug="";
+
 for (let i=0; i<=textList.length-1; i++) {
 if (textList[i].isFinal===true) {
 text+= textList[i][0].transcript;
 }
 else {
+let transcript = event.results[i][0].transcript;
+let confidence = event.results[i][0].confidence;
+let finality = event.results[i].isFinal ? "✅ Final" : "⌛ Interim";
+debug += `<p>${finality}: ${transcript} (conf: ${confidence})</p>`; document.getElementById("chatSubs").innerHTML = debug;
+
 if (i===textList.length-1) {
 interimText= textList[i][0].transcript;
 document.getElementById("chatSubs").textContent= interimText;
