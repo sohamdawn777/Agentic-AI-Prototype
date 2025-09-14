@@ -1,4 +1,3 @@
-#from langchain.chains.router import RouterChain
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
 from langchain_google_genai import ChatGoogleGenerativeAI
@@ -25,5 +24,3 @@ class Routing:
             return self.wrapperInstance1({"query":query})
         else:
             return self.wrapperInstance2({"query":query})    
-      #  router_chain=RouterChain.from_chains(destination_chains={"creative_chain":self.wrapperInstance1, "fallback_chain":self.wrapperInstance2}, router_chain=router_llm_chain, default_chain=self.wrapperInstance2, verbose=True)
-       # return router_chain.run({"query":query})
