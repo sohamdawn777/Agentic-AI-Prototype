@@ -32,6 +32,8 @@ def appId():
     return os.getenv("FIREBASE_APP_ID")
 
 databaseInstance=Database(os.getenv("FIREBASE_PROJECT_ID"), os.getenv("FIREBASE_API_KEY"), agentInstance1.memory, agentInstance2.memory)
+
+print("jhingalala whoop whoop")
     
 @app.route("/users", methods=["POST"])
 def users():
