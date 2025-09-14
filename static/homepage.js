@@ -38,9 +38,9 @@ let userCreds=await firebase.auth().signInAnonymously();
 console.log("Signed in with uid:",userCreds.user.uid);
 uid=userCreds.user.uid;
 }
+let uidSent= await fetch("/users", {method: "POST", headers:{"Content-Type": "application/json"}, body:JSON.stringify({"uid":uid})});
 }
 });
-let uidSent= await fetch("/users", {method: "POST", headers:{"Content-Type": "application/json"}, body:JSON.stringify({"uid":uid})});
 }
 
 async function send(event) {
