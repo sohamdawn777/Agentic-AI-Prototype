@@ -1,7 +1,7 @@
 from langchain.chains.base import Chain
 
 class AgentWrapper(Chain):   
-     def __init__(agent_instance,mode):
+     def __init__(self,agent_instance,mode):
          super().__init__()
          self.agent_instance=agent_instance
          self.mode=mode
