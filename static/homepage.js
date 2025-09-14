@@ -32,6 +32,7 @@ if (firebase.apps.length===0) {
 firebase.initializeApp(firebaseConfig);
 log("initialized");
 }
+
 try {
 let alreadyFetched=false;
 firebase.auth().onAuthStateChanged(async function (user) {
@@ -53,7 +54,6 @@ log("ganga teri maili",uid);
 let uidSent= await fetch("/users", {method: "POST", headers:{"Content-Type": "application/json"}, body:JSON.stringify({"uid":uid})});
 }
 });
-}
 }
 catch (error) {
 log(error);
