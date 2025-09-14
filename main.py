@@ -38,6 +38,7 @@ print("jhingalala whoop whoop")
 @app.route("/users", methods=["POST"])
 def users():
     data=request.get_json()
+    print(data["uid"])
     databaseInstance.store(data["uid"])
     
 @app.route("/query", methods=["POST"])
