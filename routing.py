@@ -19,4 +19,4 @@ class Routing:
         
         self.router_chain=RouterChain.from_chains(destination_chains={"creative_chain":wrapperInstance1, "fallback_chain":wrapperInstance2}, router_chain=router_llm_chain, default_chain=wrapperInstance2, verbose=True)
     def route(self, query):    
-        self.router_chain.run({"query":query})
+        return self.router_chain.run({"query":query})
