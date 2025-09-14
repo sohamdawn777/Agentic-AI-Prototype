@@ -2,19 +2,12 @@ from langchain.chains.router import RouterChain
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
 from langchain_google_genai import ChatGoogleGenerativeAI
-class Routing(Chain):
+class Routing:
     def __init__(self, agentInstance1, agentInstance2, gemini_key):
-        super().__init__()
         self.agentInstance1=agentInstance1
         self.agentInstance2=agentInstance2
         
         self.router_model=ChatGoogleGenerativeAI(model="gemini-2.5-flash", api_key=gemini_key)
-    @property
-    def input_keys(self):
-        return ["query"]
-    @property
-    def output_keys(self):
-        return ["answer"]
     
     def _call(self, inputs):
         query=inputs["query"]
