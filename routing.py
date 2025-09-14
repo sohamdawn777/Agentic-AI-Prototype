@@ -13,7 +13,14 @@ class Routing:
 
         self.router_model=ChatGoogleGenerativeAI(model="gemini-2.5-flash", api_key=gemini_key)
     def route(self, query):    
-        router_prompt=PromptTemplate(input_variables=["query"], template="Given this user input: {query}, decide which agent should respond: creative_chain or fallback_chain.")
+        router_prompt=PromptTemplate(input_variables=["query"], template="""You are a strict router. 
+Given this user input: {query}
+
+Return exactly one of the following keys (and nothing else):
+- creative_chain
+- fallback_chain
+
+Answer with only the key name.""")
         router_llm_chain=LLMChain(llm=self.router_model, prompt=router_prompt)
         router_chain=RouterChain.from_chains(destination_chains={"creative_chain":self.wrapperInstance1, "fallback_chain":self.wrapperInstance2}, router_chain=router_llm_chain, default_chain=self.wrapperInstance2, verbose=True)
         return router_chain.run({"query":query})
