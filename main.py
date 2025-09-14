@@ -21,12 +21,12 @@ def homepage():
 def chat():
     data=request.get_json()
     try:
-        AIresponse= agentInstance.run_agent(data["query"])
+        AIresponse= routingInstance.route(data["query"])
         return jsonify({"resp": AIresponse})
     except Exception as e:
         try:
-            queryCleaned= agentInstance.run_agent(f"Understand and summarize this query with your own nuance and understanding: \n{data['query']}")
-            AIresponse= agentInstance.run_agent(queryCleaned)
+            queryCleaned= routingInstance.route(f"Understand and summarize this query with your own nuance and understanding: \n{data['query']}")
+            AIresponse= routingInstance.route(queryCleaned)
             return jsonify({"resp": AIresponse})
         except Exception as e:
             return jsonify({"resp": f"Your response could not be understood....{e}"})    
