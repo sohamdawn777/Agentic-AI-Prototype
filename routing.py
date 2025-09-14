@@ -1,4 +1,4 @@
-from langchain.chains.router import RouterChain
+#from langchain.chains.router import RouterChain
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
 from langchain_google_genai import ChatGoogleGenerativeAI
@@ -15,7 +15,15 @@ class Routing:
     def route(self, query):    
         router_prompt=PromptTemplate(input_variables=["query"], template="""You are a strict router. Given this user input: {query}. Return exactly one of the following keys (and nothing else): creative_chain, fallback_chain. Answer with only the key name.""")
         router_llm_chain=LLMChain(llm=self.router_model, prompt=router_prompt)
-        #decision=router_llm_chain.run({"query":query})
-      #  print("tichkule tangra redfty: ",decision)
-        router_chain=RouterChain.from_chains(destination_chains={"creative_chain":self.wrapperInstance1, "fallback_chain":self.wrapperInstance2}, router_chain=router_llm_chain, default_chain=self.wrapperInstance2, verbose=True)
-        return router_chain.run({"query":query})
+        decision=router_llm_chain.run({"query":query}).strip()
+        print("tichkule tangra redfty: ",repr(decision))
+        
+        if decision not in ["creative_chain", "fallback_chain"]:
+            decision="fallback_chain"
+            
+        if decision=="creative_chain":
+            return self.wrapperInstance1({"query":query})
+        else:
+            return self.wrapperInstance2({"query":query})    
+      #  router_chain=RouterChain.from_chains(destination_chains={"creative_chain":self.wrapperInstance1, "fallback_chain":self.wrapperInstance2}, router_chain=router_llm_chain, default_chain=self.wrapperInstance2, verbose=True)
+       # return router_chain.run({"query":query})
