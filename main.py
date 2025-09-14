@@ -36,7 +36,7 @@ databaseInstance=Database(os.getenv("FIREBASE_PROJECT_ID"), os.getenv("FIREBASE_
 @app.route("/users", methods=["POST"])
 def users():
     data=request.get_json()
-    databaseInstance.store([data["uid"])
+    databaseInstance.store(data["uid"])
     
 @app.route("/query", methods=["POST"])
 def chat():
