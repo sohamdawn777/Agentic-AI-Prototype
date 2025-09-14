@@ -7,6 +7,7 @@ class Routing:
     def __init__(self, agentInstance1, agentInstance2, gemini_key, query):
         self.agentInstance1=agentInstance1
         self.agentInstance2=agentInstance2
+        self.query=query
 
         wrapperInstance1=AgentWrapper(self.agentInstance1, "creative")
         wrapperInstance2=AgentWrapper(self.agentInstance2, "fallback")
@@ -16,7 +17,7 @@ class Routing:
 
         router_prompt=PromptTemplate(input_variables=["query"], template="Given this user input: {query}, decide which agent should respond: creative_chain or fallback_chain.")
         router_llm_chain=LLMChain(llm=router_model, prompt=router_prompt)
-        
+
         self.router_chain=RouterChain.from_chains(destination_chains={"creative_chain":wrapperInstance1, "fallback_chain":wrapperInstance2}, router_chain=router_llm_chain, default_chain=wrapperInstance2, verbose=True)
-    def route(self, query):    
-        return self.router_chain.run({"query":query})
+    def route(self):    
+        return self.router_chain.run({"query":self.query})
