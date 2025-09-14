@@ -10,7 +10,7 @@ agentInstance1.initialize_creative_agent()
 agentInstance2=Agent(gemini_key)
 agentInstance2.initialize_fallback_agent()
 
-routingInstance=Routing(agentInstance1, agentInstance2)
+routingInstance=Routing(agentInstance1, agentInstance2, gemini_key)
 
 app=Flask(__name__)
 @app.route("/")
