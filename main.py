@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, jsonify
 import os
 from agent import Agent
 from routing import Routing
+from database import Database
 
 gemini_key=os.getenv("GOOGLE_API_KEY")
 
@@ -17,6 +18,26 @@ app=Flask(__name__)
 def homepage():
     return render_template("index.html")
 
+@app.route("/apiKey")
+def apiKey():
+    return os.getenv("FIREBASE_API_KEY")
+@app.route("/authDomain")
+def authDomain():
+    return os.getenv("FIREBASE_AUTH_DOMAIN")
+@app.route("/projectId")
+def projectId():
+    return os.getenv("FIREBASE_PROJECT_ID")
+@app.route("/appId")
+def appId():
+    return os.getenv("FIREBASE_APP_ID")
+
+databaseInstance=Database(os.getenv("FIREBASE_PROJECT_ID"), os.getenv("FIREBASE_API_KEY"), agentInstance1.memory, agentInstance2.memory)
+    
+@app.route("/users", methods=["POST"])
+def users():
+    data=request.get_json()
+    databaseInstance.store([data["uid"])
+    
 @app.route("/query", methods=["POST"])
 def chat():
     data=request.get_json()
@@ -30,7 +51,7 @@ def chat():
             return jsonify({"resp": AIresponse})
         except Exception as e:
             return jsonify({"resp": f"Your response could not be understood....{e}"})    
-    
+
 if __name__=="__main__":
     port=int(os.environ.get("PORT",5000))
     app.run(host="0.0.0.0", port=port)    
