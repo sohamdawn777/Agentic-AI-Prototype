@@ -7,17 +7,16 @@ class Routing:
     def __init__(self, agentInstance1, agentInstance2, gemini_key, query):
         self.agentInstance1=agentInstance1
         self.agentInstance2=agentInstance2
-        
-        wrapperInstance=AgentWrapper(self.agentInstance1, "creative")
-        wrapperInstance({"query":query})
-        
-        
-        
+
+        wrapperInstance1=AgentWrapper(self.agentInstance1, "creative")
+        wrapperInstance2=AgentWrapper(self.agentInstance2, "fallback")
+
+
         router_model=ChatGoogleGenerativeAI(model="gemini-2.5-flash", api_key=gemini_key)
-        
+
         router_prompt=PromptTemplate(input_variables=["query"], template="Given this user input: {query}, decide which agent should respond: creative or fallback.")
-        self.router_llm_chain=LLMChain(llm=self.router_model, prompt=router_prompt)
+        router_llm_chain=LLMChain(llm=router_model, prompt=router_prompt)
         
+        self.router_chain=RouterChain.from_chains(destination_chains={"creative_chain":wrapperInstance1, "fallback_chain":wrapperInstance2}, router_chain=router_llm_chain, default_chain=wrapperInstance2, verbose=True)
     def route(self):    
-        router_chain=RouterChain.from_chains(destination_chains={"creative_chain":self.agentInstance1.run_creative_agent(query), "fallback_chain":}, router_chain=self.router_llm_chain, default_chain=self.agentInstance2.run_fallback_agent(query), verbose=True)
-    
+        self.router_chain.run()
