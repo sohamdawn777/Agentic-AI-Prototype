@@ -55,4 +55,4 @@ document.getElementById("textPlace").innerHTML+=`${dataReceived.resp}<br><br>`;
 document.getElementById("b1").addEventListener("click", send);
 
 userCheck();
-}
+});
