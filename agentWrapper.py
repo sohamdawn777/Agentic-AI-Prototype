@@ -1,4 +1,4 @@
- class AgnetWrapper(Chain):   
+class AgnetWrapper(Chain):   
      def __init__(agentInstance1, agentInstance2):
          super().__init__()
          self.agentInstance1=agentInstance1
