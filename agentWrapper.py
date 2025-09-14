@@ -1,8 +1,9 @@
 from langchain.chains.base import Chain
 from pydantic import Field
 
-class AgentWrapper(Chain):   
-     
+class AgentWrapper(Chain):  
+     agent_instance: object = Field(...)
+     mode: str = Field(...)
      @property
      def input_keys(self):
          return ["query"]
