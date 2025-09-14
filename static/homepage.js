@@ -1,6 +1,14 @@
 window.addEventListener("DOMContentLoaded", (event) => {
 
-try {
+function log(msg) {
+    const container = document.getElementById("textPlace"); // or any div you want
+    if (!container) return;
+
+    const messageElement = document.createElement("div");
+    messageElement.textContent = msg;
+    container.appendChild(messageElement);
+}
+
 async function userCheck() {
 let uid;
 const firebase_api= await fetch("/apiKey");
@@ -22,6 +30,7 @@ const firebaseConfig={apiKey: firebase_Api,
 };
 if (firebase.apps.length===0) {
 firebase.initializeApp(firebaseConfig);
+log("initialized");
 }
 let alreadyFetched=false;
 firebase.auth().onAuthStateChanged(async function (user) {
@@ -31,14 +40,15 @@ return;
 else {
 alreadyFetched=true;
 if (user!==null) {
-console.log("Logged In Anonymously.");
+log("Logged In Anonymously.");
 uid=user.uid;
 }
 else {
 let userCreds=await firebase.auth().signInAnonymously();
-console.log("Signed in with uid:",userCreds.user.uid);
+log("Signed in with uid:",userCreds.user.uid);
 uid=userCreds.user.uid;
 }
+log("ganga teri maili",uid);
 let uidSent= await fetch("/users", {method: "POST", headers:{"Content-Type": "application/json"}, body:JSON.stringify({"uid":uid})});
 }
 });
@@ -56,10 +66,5 @@ document.getElementById("textPlace").innerHTML+=`${dataReceived.resp}<br><br>`;
 document.getElementById("b1").addEventListener("click", send);
 
 userCheck();
-}
-catch (error) {
-let err=document.createElement("h3");
-err.textContent=error;
-document.body.appendChild(err);
-}
+
 });
