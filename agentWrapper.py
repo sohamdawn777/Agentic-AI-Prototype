@@ -1,6 +1,6 @@
 from langchain.chains.base import Chain
 
-class AgnetWrapper(Chain):   
+class AgentWrapper(Chain):   
      def __init__(agent_instance,mode):
          super().__init__()
          self.agent_instance=agent_instance
@@ -14,6 +14,6 @@ class AgnetWrapper(Chain):
      def _call(self, inputs):
          query=inputs["query"]
          if self.mode=="creative":
-             return agent_instance.run_creative_agent(query)
+             result= agent_instance.run_creative_agent(query)
          else:
-             return agent_instance.run_fallback_agent(query)    
+             result= agent_instance.run_fallback_agent(query)    
