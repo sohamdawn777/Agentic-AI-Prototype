@@ -16,11 +16,13 @@ class Routing:
         router_llm_chain=LLMChain(llm=self.router_model, prompt=router_prompt)
         decision=router_llm_chain.run({"query":query}).strip()
         print("tichkule tangra redfty: ",repr(decision))
-        
+
         if decision not in ["creative_chain", "fallback_chain"]:
             decision="fallback_chain"
-            
+
         if decision=="creative_chain":
-            return self.wrapperInstance1({"query":query})
+            final_result=self.wrapperInstance1({"query":query})
+            return final_result["answer"]
         else:
-            return self.wrapperInstance2({"query":query})    
+            final_result=self.wrapperInstance2({"query":query})    
+            return final_result["answer"]
