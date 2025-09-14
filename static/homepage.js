@@ -1,5 +1,6 @@
 window.addEventListener("DOMContentLoaded", (event) => {
 
+try {
 async function userCheck() {
 let uid;
 const firebase_api= await fetch("/apiKey");
@@ -55,4 +56,10 @@ document.getElementById("textPlace").innerHTML+=`${dataReceived.resp}<br><br>`;
 document.getElementById("b1").addEventListener("click", send);
 
 userCheck();
+}
+catch (error) {
+let err=document.createElement("h3");
+err.textContent=error;
+document.body.appendChild(err);
+}
 });
