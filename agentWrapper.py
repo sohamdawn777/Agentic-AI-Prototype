@@ -14,7 +14,7 @@ class AgentWrapper(Chain):
      def _call(self, inputs):
          query=inputs["query"]
          if self.mode=="creative":
-             result= agent_instance.run_creative_agent(query)
+             result= self.agent_instance.run_creative_agent(query)
          else:
-             result= agent_instance.run_fallback_agent(query)    
+             result= self.agent_instance.run_fallback_agent(query)    
          return {"answer": result}    
