@@ -17,3 +17,4 @@ class AgentWrapper(Chain):
              result= agent_instance.run_creative_agent(query)
          else:
              result= agent_instance.run_fallback_agent(query)    
+         return {"answer": result}    
