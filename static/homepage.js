@@ -47,7 +47,7 @@ uid=user.uid;
 }
 else {
 let userCreds=await firebase.auth().signInAnonymously();
-log("Signed in with uid:",userCreds.user.uid);
+log("Signed in with uid:"+userCreds.user.uid);
 uid=userCreds.user.uid;
 }
 log("ganga teri maili",uid);
