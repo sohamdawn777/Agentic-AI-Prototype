@@ -58,6 +58,7 @@ let uidSent= await fetch("/users", {method: "POST", headers:{"Content-Type": "ap
 catch (error) {
 log(error);
 }
+}
 
 async function send(event) {
 let userQuery= document.getElementById("text").value;
