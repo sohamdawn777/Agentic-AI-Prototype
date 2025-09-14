@@ -1,3 +1,5 @@
+from langchain.chains.base import Chain
+
 class AgnetWrapper(Chain):   
      def __init__(agentInstance1, agentInstance2):
          super().__init__()
