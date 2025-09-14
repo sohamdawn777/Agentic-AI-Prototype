@@ -8,7 +8,7 @@ const firebase_Api= await firebase_api.text();
 const firebase_domain= await fetch("/authDomain");
 const firebase_Domain= await firebase_domain.text();
 
-const firebase_id= await fetch("projectId");
+const firebase_id= await fetch("/projectId");
 const firebase_ID= await firebase_id.text();
 
 const firebase_Id= await fetch("/appId");
@@ -39,7 +39,7 @@ console.log("Signed in with uid:",userCreds.user.uid);
 uid=userCreds.user.uid;
 }
 }
-}
+});
 let uidSent= await fetch("/users", {method: "POST", headers:{"Content-Type": "application/json"}, body:JSON.stringify({"uid":uid})});
 }
 
