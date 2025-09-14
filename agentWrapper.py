@@ -1,10 +1,10 @@
 from langchain.chains.base import Chain
 
 class AgnetWrapper(Chain):   
-     def __init__(agentInstance1, agentInstance2):
+     def __init__(agent_instance,mode):
          super().__init__()
-         self.agentInstance1=agentInstance1
-         self.agentInstance2=agentInstance2
+         self.agent_instance=agent_instance
+         self.mode=mode
      @property
      def input_keys(self):
          return ["query"]
