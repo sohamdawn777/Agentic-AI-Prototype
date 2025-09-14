@@ -13,4 +13,7 @@ class AgnetWrapper(Chain):
          return ["answer"]
      def _call(self, inputs):
          query=inputs["query"]
-             
+         if self.mode=="creative":
+             return agent_instance.run_creative_agent(query)
+         else:
+             return agent_instance.run_fallback_agent(query)    
