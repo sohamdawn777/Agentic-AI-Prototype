@@ -8,8 +8,8 @@ class Routing:
         self.agentInstance1=agentInstance1
         self.agentInstance2=agentInstance2
 
-        self.wrapperInstance1=AgentWrapper(self.agentInstance1, "creative")
-        self.wrapperInstance2=AgentWrapper(self.agentInstance2, "fallback")
+        self.wrapperInstance1=AgentWrapper(agent_instance=self.agentInstance1, mode="creative")
+        self.wrapperInstance2=AgentWrapper(agent_instance=self.agentInstance2, mode="fallback")
 
         self.router_model=ChatGoogleGenerativeAI(model="gemini-2.5-flash", api_key=gemini_key)
     def route(self, query):    
